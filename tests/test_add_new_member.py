@@ -8,9 +8,9 @@ from Utilities.Listeners import Listeners
 
 # Define a global variable to store the Listeners instance
 listeners = None
-last_page = "16"
+last_page = "11"
 
-# Define a list of test data with multiple first names and family names
+# Define a list of test data with multiple first names and family names test cases
 test_data = [
     ("New Member First Name", "New Member Family Name"),  # legal data
     ('', ''),  # illegal input - empty fields
@@ -45,7 +45,7 @@ def setup(browser, page):
 
 
 class TestAddNewMember:
-
+    @pytest.mark.sanity
     @pytest.mark.parametrize("first_name, last_name", test_data)
     def test_add_new_member(self, setup, page, first_name, last_name):
         main_page = setup

@@ -32,7 +32,7 @@ def setup(browser, page):
 
 
 class TestMembersDisplayPerPage:
-
+    @pytest.mark.sanity
     def test_members_display_per_page(self, setup, page):
         main_page = setup
         # Wait for the member items to load

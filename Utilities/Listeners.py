@@ -1,14 +1,18 @@
+# Import necessary modules and libraries.
 import os
 import pytest
 from playwright.sync_api import sync_playwright
 
 
+# Create a class called 'Listeners' for handling test-related actions.
 class Listeners:
     def __init__(self):
+        # Define a directory to store screenshots.
         self.screenshot_dir = os.path.join(os.getcwd(), "screenshots")
         os.makedirs(self.screenshot_dir, exist_ok=True)  # Create the screenshot directory
         self.page = None  # Store the Page instance
 
+    # Define a pytest fixture to manage the browser instance.
     @pytest.fixture(scope="module", params=["chromium", "firefox", "webkit"])
     def browser(self, request):
         with sync_playwright() as p:
@@ -17,6 +21,7 @@ class Listeners:
             yield browser
             browser.close()
 
+    # Define a pytest fixture to manage the Page instance.
     @pytest.fixture(scope="function")
     def page(self, browser):
         page = browser.new_page()
@@ -24,6 +29,7 @@ class Listeners:
         yield page
         page.close()
 
+    # Define a pytest fixture for taking a screenshot upon test failure.
     @pytest.fixture(scope="function", autouse=True)
     def screenshot_on_failure(self, request, page):
         yield
@@ -35,11 +41,13 @@ class Listeners:
 
             take_screenshot()
 
+    # Define an on_finish method to clean up resources after all tests.
     def on_finish(self):
         if self.page:
             self.page.close()
         print("------------------- Tests Completed! Cleaning up... -------------------")
 
+    # Define a pytest fixture for test setup.
     @pytest.fixture(scope="function", autouse=True)
     def test_listener(self, request):
         print("------------------- Test " + request.node.name + " is Starting! -------------------")
@@ -63,6 +71,7 @@ class Listeners:
 
             take_screenshot()
 
+    # Define pytest fixtures for test setup, teardown, and failure handling.
     @pytest.fixture(scope="function", autouse=True)
     def handle_test_setup(self, request):
         def on_test_setup():

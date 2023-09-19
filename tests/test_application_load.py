@@ -30,7 +30,7 @@ def setup(browser, page):
 
 
 class TestApplicationLoad:
-
+    @pytest.mark.sanity
     @pytest.mark.parametrize("page_title", ["React App"])
     def test_application_loads_successfully(self, page_title, setup, page):
         main_page = setup

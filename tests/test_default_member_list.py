@@ -36,7 +36,7 @@ class TestDefaultMemberList:
 
     def test_default_member_list(self, setup, page):
         main_page = setup
-        # Wait for the member list to load (you can adjust the timeout as needed)
+        # Wait for the member list to load
         page.wait_for_selector(main_page.table_selector, timeout=5000)
         # Check if the member list is displayed on the first page
         is_member_list_displayed = page.is_visible(main_page.table_selector)

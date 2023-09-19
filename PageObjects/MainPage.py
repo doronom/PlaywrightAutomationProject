@@ -3,10 +3,12 @@ from playwright.sync_api import Page, Locator
 from Utilities.ProjectBase import ProjectBase
 
 
+# The `MainPage` class is a representation of the main page of a web application
 class MainPage(ProjectBase):
     def __init__(self, page):
         self.page = page
 
+    # Property methods define locators for different elements on the web page.
     @property
     def next_page_button(self) -> Locator:
         return self.page.locator("svg[data-testid='ArrowRightIcon']")
@@ -37,7 +39,8 @@ class MainPage(ProjectBase):
 
     @property
     def add_button(self) -> Locator:
-        return self.page.locator("button.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium")
+        return self.page.locator(
+            "button.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium")
 
     @property
     def table_row(self) -> Locator:
@@ -47,12 +50,14 @@ class MainPage(ProjectBase):
     def table_all(self) -> Locator:
         return self.page.locator("table.MuiTable-root")
 
+    # List of selector that required for the tests classes
     table_selector = "table.MuiTable-root"
     next_page_button_selector = "svg[data-testid='ArrowRightIcon']"
     back_page_button_selector = "svg[data-testid='ArrowLeftIcon']"
     members_items_selector = "tr[class='MuiTableRow-root css-1gqug66']"
     table_row_selector = "//td['MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-q34dxg']"
-    # actions
+
+    # These are common interactions with web pages.
 
     def get_page_title(self) -> str:
         return self.page.title()
